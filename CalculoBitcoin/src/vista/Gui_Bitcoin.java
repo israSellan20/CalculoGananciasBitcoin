@@ -11,18 +11,35 @@ import javax.swing.JTextField;
 import java.awt.Color;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
+import javax.swing.JMenuBar;
+import javax.swing.JMenu;
+import javax.swing.JCheckBoxMenuItem;
+import javax.swing.JRadioButtonMenuItem;
+import javax.swing.JComboBox;
 
 
 public class Gui_Bitcoin extends JFrame {
 
 	private panelImagen p;
+	private JMenuBar menuBar;
+	private JMenu mnVer;
+	private JRadioButtonMenuItem riFondoBitcoin;
+	private JRadioButtonMenuItem riFondoTheta;
+	private JLabel lblNewLabel;
+	private JLabel lblNewLabel_1;
 	private JTextField txfPrecioActual;
+	private JLabel lblPrecioDelBitcoin;
+	private JLabel lblCantidadDeBitcoins;
+	private JLabel lblGananciasNeta;
+	private JLabel lblPorcentajeDeRetorno;
 	private JTextField txfPrecioComprado;
 	private JTextField txfCantidadComprado;
 	private JLabel lblNeto;
 	private JLabel lblRetorno;
 	private JButton btnNewButton;
 	private JButton btnLimpiarDatos;
+	private JRadioButtonMenuItem riFondoVechain;
+	private JRadioButtonMenuItem riFondoDoge;
 	
 
 	/**
@@ -47,17 +64,31 @@ public class Gui_Bitcoin extends JFrame {
 	 * Create the frame.
 	 */
 	public Gui_Bitcoin() {
+		p = new panelImagen();
 		initContentPane();
+		initMenu();
+		riFondoBitcoin.setSelected(true);
+		riFondoBitcoin.setEnabled(false);
+		
 		initLabels(); 
 		initTextFields();
 		initButtons();	
 	}
 	
+	public Gui_Bitcoin(panelImagen p) {
+		
+		this.p = p;
+		System.out.println("Iniciado");
+		initContentPane();
+		initMenu();
+		initLabels(); 
+		initTextFields();
+		initButtons();	
+	}
 	
 	private void initContentPane() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		p = new panelImagen();
-		setBounds(100, 100, 684, 800);
+		setBounds(100, 100, 675, 800);
 		p.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(p);
 		p.setLayout(null);
@@ -65,42 +96,63 @@ public class Gui_Bitcoin extends JFrame {
 		setLocationRelativeTo(null);
 	}
 	
+	//Se inicializa el menu
+	private void initMenu() {
+		menuBar = new JMenuBar();
+		menuBar.setBounds(0, 0, 680, 26);
+		p.add(menuBar);
+		
+		mnVer = new JMenu("Ver");
+		menuBar.add(mnVer);
+		
+		riFondoBitcoin = new JRadioButtonMenuItem("Fondo Bitcoin");
+		mnVer.add(riFondoBitcoin);
+		
+		riFondoTheta = new JRadioButtonMenuItem("Fondo Theta");
+		mnVer.add(riFondoTheta);
+		
+		riFondoVechain = new JRadioButtonMenuItem("Fondo VeChain");
+		mnVer.add(riFondoVechain);
+		
+		riFondoDoge = new JRadioButtonMenuItem("Fondo Doge");
+		mnVer.add(riFondoDoge);
+	}
+	
 	//Se inicializan los labels
 	private void initLabels() {
-		JLabel lblNewLabel = new JLabel("Calculo ganancias Bitcoin");
+		lblNewLabel = new JLabel("Calculo de ganacias Cryptomonedas");
 		lblNewLabel.setFont(new Font("Tw Cen MT Condensed", Font.BOLD, 44));
-		lblNewLabel.setBounds(144, 10, 386, 87);
+		lblNewLabel.setBounds(52, 10, 564, 87);
 		p.add(lblNewLabel);
 		
-		JLabel lblNewLabel_1 = new JLabel("Precio actual del bitcoin: ");
+		lblNewLabel_1 = new JLabel("Precio actual del bitcoin: ");
 		lblNewLabel_1.setFont(new Font("Tw Cen MT Condensed", Font.BOLD, 26));
 		lblNewLabel_1.setBounds(30, 152, 231, 47);
 		p.add(lblNewLabel_1);
 		
-		JLabel lblPrecioDelBitcoin = new JLabel("Precio del bitcoin comprado(en dolares):");
+		lblPrecioDelBitcoin = new JLabel("Precio del bitcoin comprado(en dolares):");
 		lblPrecioDelBitcoin.setFont(new Font("Tw Cen MT Condensed", Font.BOLD, 26));
 		lblPrecioDelBitcoin.setBounds(30, 252, 368, 47);
 		p.add(lblPrecioDelBitcoin);
 		
-		JLabel lblCantidadDeBitcoins = new JLabel("Cantidad de bitcoins comprados(en dolares): ");
+		lblCantidadDeBitcoins = new JLabel("Cantidad de bitcoins comprados(en dolares): ");
 		lblCantidadDeBitcoins.setFont(new Font("Tw Cen MT Condensed", Font.BOLD, 26));
 		lblCantidadDeBitcoins.setBounds(30, 352, 409, 47);
 		p.add(lblCantidadDeBitcoins);
 		
-		JLabel lblGananciasNeta = new JLabel("Ganancias o perdidas netas:");
+		lblGananciasNeta = new JLabel("Ganancias o perdidas netas:");
 		lblGananciasNeta.setFont(new Font("Tw Cen MT Condensed", Font.BOLD, 26));
 		lblGananciasNeta.setBounds(30, 452, 259, 47);
 		p.add(lblGananciasNeta);
 		
-		JLabel lblPorcentajeDeRetorno = new JLabel("Porcentaje de retorno: ");
+		lblPorcentajeDeRetorno = new JLabel("Porcentaje de retorno: ");
 		lblPorcentajeDeRetorno.setFont(new Font("Tw Cen MT Condensed", Font.BOLD, 26));
 		lblPorcentajeDeRetorno.setBounds(30, 552, 231, 47);
 		p.add(lblPorcentajeDeRetorno);
 		
 		lblRetorno = new JLabel("");
-		lblRetorno.setForeground(Color.RED);
 		lblRetorno.setFont(new Font("Arial Black", Font.PLAIN, 20));
-		lblRetorno.setBounds(244, 562, 171, 26);
+		lblRetorno.setBounds(244, 562, 306, 26);
 		p.add(lblRetorno);
 		
 		lblNeto = new JLabel("");
@@ -151,10 +203,91 @@ public class Gui_Bitcoin extends JFrame {
 	}
 
 	//Metodos Getter y Setter
+	
+	public JRadioButtonMenuItem getRiFondoBitcoin() {
+		return riFondoBitcoin;
+	}
+
+	public JRadioButtonMenuItem getRiFondoDoge() {
+		return riFondoDoge;
+	}
+
+	public void setRiFondoDoge(JRadioButtonMenuItem riFondoDoge) {
+		this.riFondoDoge = riFondoDoge;
+	}
+
+	public JRadioButtonMenuItem getRiFondoVechain() {
+		return riFondoVechain;
+	}
+
+	public void setRiFondoVechain(JRadioButtonMenuItem riFondoVechain) {
+		this.riFondoVechain = riFondoVechain;
+	}
+
+	public JLabel getLblNewLabel() {
+		return lblNewLabel;
+	}
+
+	public void setLblNewLabel(JLabel lblNewLabel) {
+		this.lblNewLabel = lblNewLabel;
+	}
+
+	public JLabel getLblNewLabel_1() {
+		return lblNewLabel_1;
+	}
+
+	public void setLblNewLabel_1(JLabel lblNewLabel_1) {
+		this.lblNewLabel_1 = lblNewLabel_1;
+	}
+
+	public JLabel getLblPrecioDelBitcoin() {
+		return lblPrecioDelBitcoin;
+	}
+
+	public void setLblPrecioDelBitcoin(JLabel lblPrecioDelBitcoin) {
+		this.lblPrecioDelBitcoin = lblPrecioDelBitcoin;
+	}
+
+	public JLabel getLblCantidadDeBitcoins() {
+		return lblCantidadDeBitcoins;
+	}
+
+	public void setLblCantidadDeBitcoins(JLabel lblCantidadDeBitcoins) {
+		this.lblCantidadDeBitcoins = lblCantidadDeBitcoins;
+	}
+
+	public JLabel getLblGananciasNeta() {
+		return lblGananciasNeta;
+	}
+
+	public void setLblGananciasNeta(JLabel lblGananciasNeta) {
+		this.lblGananciasNeta = lblGananciasNeta;
+	}
+
+	public JLabel getLblPorcentajeDeRetorno() {
+		return lblPorcentajeDeRetorno;
+	}
+
+	public void setLblPorcentajeDeRetorno(JLabel lblPorcentajeDeRetorno) {
+		this.lblPorcentajeDeRetorno = lblPorcentajeDeRetorno;
+	}
+
+	public void setRiFondoBitcoin(JRadioButtonMenuItem riFondoBitcoin) {
+		this.riFondoBitcoin = riFondoBitcoin;
+	}
+
+	public JRadioButtonMenuItem getRiFondoTheta() {
+		return riFondoTheta;
+	}
+
+	public void setRiFondoTheta(JRadioButtonMenuItem riFondoTheta) {
+		this.riFondoTheta = riFondoTheta;
+	}
+	
 	public JTextField getTxfPrecioActual() {
 		return txfPrecioActual;
 	}
-
+	
 	public void setTxfPrecioActual(JTextField txfPrecioActual) {
 		this.txfPrecioActual = txfPrecioActual;
 	}
@@ -214,7 +347,4 @@ public class Gui_Bitcoin extends JFrame {
 	public void setP(panelImagen p) {
 		this.p = p;
 	}
-	
-	
-	
 }

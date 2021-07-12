@@ -8,6 +8,11 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.text.DecimalFormat;
 
+import javax.swing.ImageIcon;
+import javax.swing.JLabel;
+import javax.swing.JRadioButtonMenuItem;
+import javax.swing.JTextField;
+
 import modelo.DatosBitcoin;
 import vista.Gui_Bitcoin;
 
@@ -31,6 +36,10 @@ public class Ctr_GuiBitcoin implements ActionListener,  KeyListener{
 		this.gui.getTxfCantidadComprado().addKeyListener(this);
 		this.gui.getTxfPrecioActual().addKeyListener(this);
 		this.gui.getTxfPrecioComprado().addKeyListener(this);
+		this.gui.getRiFondoBitcoin().addActionListener(this);
+		this.gui.getRiFondoTheta().addActionListener(this);
+		this.gui.getRiFondoVechain().addActionListener(this);
+		this.gui.getRiFondoDoge().addActionListener(this);
 	}
 	
 	//Limpia los datos de los textfields dejandolos todo en blanco
@@ -59,8 +68,8 @@ public class Ctr_GuiBitcoin implements ActionListener,  KeyListener{
 		
 		}
 		
-		//Si las ganancias netas son superiores a 1 dolar
-		else if(this.datos.calcularGananciasNetas() > 1) {
+		//Si las ganancias netas son iguales o superiores a 1 dolar
+		else if(this.datos.calcularGananciasNetas() >= 1) {
 			DecimalFormat formato1 = new DecimalFormat("0.00"); // Muestra solo 2 decimales
 			this.gui.getLblNeto().setForeground(Color.green);
 			this.gui.getLblNeto().setFont(new Font("Arial Black", Font.PLAIN, 15));
@@ -108,8 +117,8 @@ public class Ctr_GuiBitcoin implements ActionListener,  KeyListener{
 			
 			}
 		
-		//Si las ganancias netas son mayores de 1 dolar en adelante
-		else if(this.datos.calcularGananciasNetas() > 1) {
+		//Si las ganancias netas son mayores o iguales de 1 dolar en adelante
+		else if(this.datos.calcularGananciasNetas() >= 1) {
 			DecimalFormat formato1 = new DecimalFormat("0.00");
 			this.gui.getLblRetorno().setForeground(Color.green);
 			this.gui.getLblRetorno().setText((String.valueOf(formato1.format(this.datos.calcularPorcentajeRetorno()))+"%"));
@@ -137,7 +146,88 @@ public class Ctr_GuiBitcoin implements ActionListener,  KeyListener{
 		}
 	}
 
+	private void fondoBitcoin() {
+		Gui_Bitcoin ventana = new Gui_Bitcoin();
+		new Ctr_GuiBitcoin(ventana, new DatosBitcoin());
+		ventana.setVisible(true);
+		
+		ventana.getTxfPrecioActual().setText((gui.getTxfPrecioActual().getText()));
+		ventana.getTxfPrecioComprado().setText((gui.getTxfPrecioComprado().getText())); 
+		ventana.getTxfCantidadComprado().setText((gui.getTxfCantidadComprado().getText())); 
+		ventana.getLblNeto().setText(gui.getLblNeto().getText()); 
+		ventana.getLblRetorno().setText(gui.getLblRetorno().getText()); 
+		ventana.getLblNeto().setForeground(gui.getLblNeto().getForeground());
+		ventana.getLblRetorno().setForeground(gui.getLblRetorno().getForeground());
+		
+		gui.dispose();
+	}
 	
+	private void fondoTheta() {
+		ImageIcon imagenFondo = new ImageIcon(getClass().getResource("/imagenes/Theta.png"));
+		Gui_Bitcoin ventana = new Gui_Bitcoin(new panelImagen(imagenFondo));
+		new Ctr_GuiBitcoin(ventana, new DatosBitcoin());
+		ventana.setVisible(true);	
+		
+		ventana.getRiFondoTheta().setSelected(true);
+		ventana.getRiFondoTheta().setEnabled(false);
+		
+		ventana.getTxfPrecioActual().setText((gui.getTxfPrecioActual().getText()));
+		ventana.getTxfPrecioComprado().setText((gui.getTxfPrecioComprado().getText())); 
+		ventana.getTxfCantidadComprado().setText((gui.getTxfCantidadComprado().getText())); 
+		ventana.getLblNeto().setText(gui.getLblNeto().getText()); 
+		ventana.getLblRetorno().setText(gui.getLblRetorno().getText()); 
+		ventana.getLblNeto().setForeground(gui.getLblNeto().getForeground());
+		ventana.getLblRetorno().setForeground(gui.getLblRetorno().getForeground());
+		
+		new Ctr_Apariencias(ventana).aparienciaFondoTheta();
+				
+		gui.dispose();
+	}
+	
+	private void fondoVechain() {
+		ImageIcon imagenFondo = new ImageIcon(getClass().getResource("/imagenes/Fondo Vechain.png"));
+		Gui_Bitcoin ventana = new Gui_Bitcoin(new panelImagen(imagenFondo));
+		new Ctr_GuiBitcoin(ventana, new DatosBitcoin());
+		ventana.setVisible(true);
+		
+		ventana.getRiFondoVechain().setSelected(true);
+		ventana.getRiFondoVechain().setEnabled(false);
+		
+		ventana.getTxfPrecioActual().setText((gui.getTxfPrecioActual().getText()));
+		ventana.getTxfPrecioComprado().setText((gui.getTxfPrecioComprado().getText())); 
+		ventana.getTxfCantidadComprado().setText((gui.getTxfCantidadComprado().getText())); 
+		ventana.getLblNeto().setText(gui.getLblNeto().getText()); 
+		ventana.getLblRetorno().setText(gui.getLblRetorno().getText()); 
+		ventana.getLblNeto().setForeground(gui.getLblNeto().getForeground());
+		ventana.getLblRetorno().setForeground(gui.getLblRetorno().getForeground());
+		
+		new Ctr_Apariencias(ventana).aparienciaFondoVechain();
+		
+		gui.dispose();
+		
+	}
+	
+	private void fondoDoge() {
+		ImageIcon imagenFondo = new ImageIcon(getClass().getResource("/imagenes/Doge.png"));
+		Gui_Bitcoin ventana = new Gui_Bitcoin(new panelImagen(imagenFondo));
+		new Ctr_GuiBitcoin(ventana, new DatosBitcoin());
+		ventana.setVisible(true);
+		
+		ventana.getRiFondoDoge().setSelected(true);
+		ventana.getRiFondoDoge().setEnabled(false);
+		
+		ventana.getTxfPrecioActual().setText((gui.getTxfPrecioActual().getText()));
+		ventana.getTxfPrecioComprado().setText((gui.getTxfPrecioComprado().getText())); 
+		ventana.getTxfCantidadComprado().setText((gui.getTxfCantidadComprado().getText())); 
+		ventana.getLblNeto().setText(gui.getLblNeto().getText()); 
+		ventana.getLblRetorno().setText(gui.getLblRetorno().getText()); 
+		ventana.getLblNeto().setForeground(gui.getLblNeto().getForeground());
+		ventana.getLblRetorno().setForeground(gui.getLblRetorno().getForeground());
+		
+		new Ctr_Apariencias(ventana).aparienciaFondoDoge();
+		
+		gui.dispose();
+	}
 	
 	@Override
 	public void actionPerformed(ActionEvent e) {
@@ -150,6 +240,23 @@ public class Ctr_GuiBitcoin implements ActionListener,  KeyListener{
 			limpiarDatos();
 			this.gui.getBtnLimpiarDatos().setEnabled(false);
 		}
+		
+		if(e.getSource() == this.gui.getRiFondoBitcoin()) {
+			fondoBitcoin();
+		}
+		
+		if(e.getSource() == this.gui.getRiFondoTheta()) {
+			fondoTheta();
+		}
+		
+		if(e.getSource() == this.gui.getRiFondoVechain()) {
+			fondoVechain();
+		}
+		
+		if(e.getSource() == this.gui.getRiFondoDoge()) {
+			fondoDoge();
+		}
+		
 	}
 	
 
