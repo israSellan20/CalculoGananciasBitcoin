@@ -88,7 +88,7 @@ public class Gui_Bitcoin extends JFrame {
 	
 	private void initContentPane() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 675, 800);
+		setBounds(100, 100, 684, 800);
 		p.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(p);
 		p.setLayout(null);

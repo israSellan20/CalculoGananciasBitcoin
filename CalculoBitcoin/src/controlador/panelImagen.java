@@ -18,7 +18,7 @@ public class panelImagen extends JPanel {
 	public panelImagen() {
 		
 		this.setSize(684, 800);//Tamaño del JFrame
-		imagenFondo = new ImageIcon(getClass().getResource("/imagenes/UntitledFondo (2).png"));
+		imagenFondo = new ImageIcon(getClass().getResource("/imagenes/Fondo BitcoinFondo.png"));
 	}
 	
 	//Dibuja la imagen en el JFrame
